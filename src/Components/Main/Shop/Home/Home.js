@@ -1,0 +1,28 @@
+import React, { Component } from 'react';
+import NavigationExperimental from 'react-native-deprecated-custom-components';
+
+import HomeView from './HomeView';
+import ProductDetail from '../ProductDetail/ProductDetail';
+import ListProduct from '../ListProduct/ListProduct';
+
+export default class Home extends Component {
+	render() {
+		const { types, topProducts } = this.props; 
+
+		return (
+			<NavigationExperimental.Navigator
+				initialRoute={{ name: 'HOME_VIEW' }}
+				renderScene={(route, navigator) => {
+					switch (route.name) {
+						case 'HOME_VIEW':
+							return <HomeView navigator={navigator} types={types} topProducts={topProducts} />;
+						case 'PRODUCT_DETAIL':
+							return <ProductDetail navigator={navigator} product={route.product} />;
+						default:
+							return <ListProduct navigator={navigator} />;
+					}
+				}}
+			/>
+		);
+	}
+}
